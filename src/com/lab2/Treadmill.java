@@ -1,34 +1,21 @@
 package com.lab2;
 
-public class Treadmill extends Barrier{
+public class Treadmill implements IObstacle{
+    private int distanceLength;
 
-    private int length;
-    private String name;
-
-    public Treadmill(String _name, int _length) {
-        this.name = _name;
-        this.length = _length;
+    public Treadmill(DistanceLengthEnum d){
+        this.distanceLength = d.getDistance();
     }
 
-    public int getLength() {
-        return length;
-    }
-    public String getRoudName() {return name;}
-
-    @Override
-    protected boolean moving(IActions actions) {
-        System.out.println("The " + this.name + "; length - " + this.length);
-
-        actions.run();
-
-        if (getLength() <= actions.getRunDistance()) {
-            System.out.println("Пробежал\n");
-
-            return true;
-        } else {
-            System.out.println("Споткнулся\n");
-
-            return false;
+    public boolean OvercomeAnObstacle(IParticipant com){
+        boolean k = true;
+        if(com.getRun()>= distanceLength){
+            com.Run(distanceLength);
         }
+        else {
+            com.NoRun(distanceLength);
+            k=false;
+        }
+        return k;
     }
 }

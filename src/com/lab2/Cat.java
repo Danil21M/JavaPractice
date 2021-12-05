@@ -1,33 +1,36 @@
 package com.lab2;
 
-public class Cat implements IActions {
+public class Cat implements IParticipant {
     private String name;
-    private int runDistance;
-    private int jumpHeight;
+    private int maxRun;
+    private int maxJump;
 
-    public Cat(String name, int distance, int height) {
+    public Cat(String name, int run, int jump){
         this.name = name;
-        this.runDistance = distance;
-        this.jumpHeight = height;
+        this.maxRun = run;
+        this.maxJump = jump;
+    }
+    @Override
+    public void Jump(int height) {
+        System.out.println("Кошка " + name +" перепрыгнула препятствие высотой " + height);
     }
 
     @Override
-    public void run() {
-        System.out.println("Cat " + this.name + " is running " + this.getRunDistance());
+    public void Run(int length) {
+        System.out.println("Кошка " + name +" пробежала препятствие длиной " + length);
     }
 
     @Override
-    public void jump() {
-        System.out.println("Cat " + this.name + " is jumping " + this.getJumpHeight());
+    public void NoJump(int height){
+        System.out.println("Кошка " + name +" не смогла перепрыгнуть препятствие высотой " + height);
     }
 
     @Override
-    public int getRunDistance() {
-        return this.runDistance;
+    public void NoRun(int length) {
+        System.out.println("Кошка " + name +" не смогла пробежать препятствие длиной  " + length);
     }
 
-    @Override
-    public int getJumpHeight() {
-        return this.jumpHeight;
-    }
+    public String getName(){return name;}
+    public int getRun(){return maxRun;}
+    public int getJump(){return maxJump;}
 }

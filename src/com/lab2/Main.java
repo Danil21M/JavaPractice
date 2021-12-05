@@ -1,23 +1,29 @@
 package com.lab2;
-import java.util.Random;
+
 public class Main {
-    public static void main(String[] args){
-        Random rand = new Random();
-        IActions[] actions = new IActions[3];
+    public static void main(String[] args) {
+        IParticipant[] participants = {
+                new Human("Danya", 600, 140),
+                new Cat("Darsi", 300, 50),
+                new Robot("8-Bit", 1000, 200)
+        };      //Создаем массив участников
 
-        int distance = rand.nextInt(10);
-        int heigth = rand.nextInt(10);
-        actions[0] = new Human("Danya", distance, heigth);
+        IObstacle[] obstacles = {
+                new Treadmill(DistanceLengthEnum.SHORT),
+                new Treadmill(DistanceLengthEnum.LONG),
+                new Wall(50),
+                new Wall(150)
+        };      //Создаем массив препятствий
 
-        distance = rand.nextInt(10);
-        heigth = rand.nextInt(10);
-        actions[1] = new Robot("8-bit", distance, heigth);
-
-        distance = rand.nextInt(10);
-        heigth = rand.nextInt(10);
-        actions[2] = new Cat("Mosya", distance, heigth);
-
-        Barrier[] barriers = new Barrier[4];
-
+        for (IParticipant i : participants) {           //Прогоняем участников по массиву
+            for (IObstacle j : obstacles) {
+                if (!j.OvercomeAnObstacle(i))  {
+                    System.out.println(i.getName() + " не смог преодолеть дистанцию!\n");
+                    break;
+                }
+                if(j == obstacles[obstacles.length-1])
+                    System.out.println(i.getName() + " Успешно преодолел дистанцию!\n");
+            }
+        }
     }
 }
